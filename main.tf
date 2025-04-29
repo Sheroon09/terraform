@@ -1,9 +1,15 @@
-resource "local_file" "my_pet" {
-  filename = "pets.txt"
-  content  = "I Hate pets!"
+provider "aws" {
+  region     = var.aws_region
+  access_key = var.aws_access_key
+  secret_key = var.aws_secret_key
 }
-resource "random_pet" "mypet" {
-  prefix    = "MR"
-  separator = "."
-  length    = "1"
+
+resource "aws_instance" "example" {
+  ami           = var.ami_id
+  instance_type = var.instance_type
+
+  tags = {
+    Name = "Terraform-EC2"
+  }
 }
+
